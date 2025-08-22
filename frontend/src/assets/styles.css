@@ -204,3 +204,17 @@ button.submit:hover {
 .btn-delete:hover {
     background: #dc2626;
 }
+
+button.cancel {
+    background-color: #e0e0e0;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button.cancel:hover {
+    background-color: #d6d6d6;
+}

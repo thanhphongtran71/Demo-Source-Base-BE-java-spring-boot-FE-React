@@ -10,6 +10,7 @@ function Header() {
                     <li><Link to="/users">Users</Link></li>
                     <li><Link to="/categories">Categories</Link></li>
                     <li><Link to="/products">Products</Link></li>
+                    <li><Link to="/tables">Tables</Link></li>
                 </ul>
             </nav>
         </header>

@@ -4,6 +4,7 @@ import Layout from "./layout/Layout";
 import UsersPage from "./pages/UsersPage";
 import CategoriesPage from "./pages/CategoriesPage";
 import ProductsPage from "./pages/ProductsPage";
+import TablesPage from "./pages/TablesPage";
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                 <Route path="/users" element={<UsersPage />} />
                 <Route path="/categories" element={<CategoriesPage />} />
                 <Route path="/products" element={<ProductsPage />} />
+                <Route path="/tables" element={<TablesPage />} />
             </Routes>
         </Layout>
     );

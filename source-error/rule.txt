@@ -1,0 +1,362 @@
+[
+  {
+    "Prj_id": "XXXX",
+    "rule_id": "J_R03",
+    "title": "[Object Comparison] Sử dụng .equals() để so sánh đối tượng",
+    "description": "Khi so sánh nội dung của hai đối tượng trong Java, phải sử dụng phương thức `.equals()` thay vì toán tử `==`. Toán tử `==` chỉ kiểm tra xem hai biến có trỏ đến cùng một địa chỉ trong bộ nhớ hay không, không kiểm tra giá trị thực sự của đối tượng.\n\n**Lý do chi tiết:**\n- **So sánh địa chỉ:** `==` chỉ kiểm tra địa chỉ tham chiếu, không phải nội dung.\n- **So sánh giá trị:** `.equals()` được override trong nhiều class (ví dụ: `String`, `Integer`, `List`, ...) để so sánh nội dung thực sự.\n- **Tránh bug logic:** Sử dụng `==` có thể dẫn đến logic sai khi hai đối tượng có cùng giá trị nhưng khác địa chỉ.\n\n**Các trường hợp ngoại lệ:**\n- Không có.",
+    "severity": "High",
+    "category": "nocontext",
+    "language": [
+      "java"
+    ],
+    "example_incorrect": "// So sánh bằng == sẽ sai nếu khác địa chỉ\nString a = new String(\"hello\");\nString b = new String(\"hello\");\nif (a == b) {\n  // ... logic sẽ không được thực thi\n}",
+    "example_correct": "// So sánh bằng .equals() để kiểm tra nội dung\nString a = new String(\"hello\");\nString b = new String(\"hello\");\nif (a.equals(b)) {\n  // ... logic sẽ được thực thi\n}",
+    "suggested_fix": [
+      "Thay thế tất cả các biểu thức so sánh giữa object bằng `.equals()` thay vì `==`.",
+      "Đảm bảo các class custom override phương thức `.equals()` nếu cần so sánh nội dung.",
+      "Chỉ sử dụng `==` khi so sánh primitive type hoặc kiểm tra tham chiếu.",
+      "Sử dụng `Objects.equals(a, b)` để tránh lỗi NullPointerException khi một trong hai đối tượng có thể null.",
+      "Đảm bảo kiểm tra null trước khi gọi `.equals()` nếu không dùng `Objects.equals()`."
+    ],
+    "tags": [
+      "object-comparison",
+      "equals",
+      "java",
+      "reference",
+      "logic-error"
+    ],
+    "semantic_keywords": [
+      "java equals vs ==",
+      "compare string in java",
+      "object comparison best practice",
+      "why not use == for objects",
+      "equals method java"
+    ],
+    "metadata": {
+      "created_at": "2025-08-15",
+      "updated_at": "2025-08-15",
+      "applicable_files": [
+        "*.java"
+      ]
+    }
+  },
+  {
+    "Prj_id": "XXXX",
+    "rule_id": "Js_R05",
+    "title": "[Avoid Any] Tránh định nghĩa type của prop là any",
+    "description": "any làm mất đi tính kiểm soát type, dễ gây lỗi và khó maintain. Nếu chưa rõ type, có thể dùng unknown, Record<string, unknown> hoặc tham khảo trong dự án.",
+    "severity": "Medium",
+    "category": "nocontext",
+    "language": [
+      "TypeScript",
+      "tsx"
+    ],
+    "example_correct": "typescript\ntype Props = {\n  data: Record<string, unknown>;\n};",
+    "example_incorrect": "typescript\ntype Props = {\n  data: any;\n};\n// any làm mất đi tính kiểm soát type, nên cần tránh dùng.",
+    "suggested_fix": [
+      "Tránh dùng 'any' trong định nghĩa props.",
+      "Sử dụng 'unknown' hoặc 'Record<string, unknown>' nếu chưa rõ kiểu dữ liệu.",
+      "Tham khảo các kiểu dữ liệu đã được định nghĩa trong dự án để sử dụng lại.",
+      "unknown giúp đảm bảo kiểm tra type trước khi sử dụng, an toàn hơn so với any."
+    ],
+    "tags": [
+      "typescript",
+      "type-safety",
+      "avoid-any",
+      "props",
+      "react"
+    ],
+    "semantic_keywords": [
+      "typescript avoid any",
+      "props type safety",
+      "unknown vs any",
+      "record type in typescript",
+      "react props typing"
+    ],
+    "metadata": {
+      "created_at": "2025-08-15",
+      "updated_at": "2025-08-15",
+      "applicable_files": [
+        "*.tsx",
+        "*.jsx"
+      ]
+    }
+  },
+  {
+    "Prj_id": "XXXX",
+    "rule_id": "Js_R06",
+    "title": "[Triple Equals] Luôn dùng === thay vì == để so sánh giá trị",
+    "description": "Toán tử == thực hiện ép kiểu ngầm định, có thể gây ra lỗi logic khó phát hiện. Sử dụng === để đảm bảo so sánh giá trị và kiểu dữ liệu (strict equality).\n\n**Lý do chi tiết:**\n- **==**: Tự động ép kiểu, dễ gây bug khi so sánh số, string, boolean.\n- **===**: So sánh cả giá trị lẫn kiểu, giúp code an toàn và dễ maintain.\n\n**Trường hợp ngoại lệ:**\n- Không có.",
+    "severity": "High",
+    "category": "nocontext",
+    "language": [
+      "javascript",
+      "js",
+      "jsx"
+    ],
+    "example_incorrect": "// So sánh == có thể gây lỗi\nconst a = '1';\nconst b = 1;\nif (a == b) {\n  // logic sẽ thực thi, nhưng có thể không đúng ý nghĩa\n}",
+    "example_correct": "// So sánh === sẽ an toàn\nconst a = '1';\nconst b = 1;\nif (a === b) {\n  // logic sẽ không thực thi (đúng kỳ vọng)\n}",
+    "suggested_fix": [
+      "Luôn dùng === thay cho == trong mọi trường hợp so sánh giá trị.",
+      "Đảm bảo kiểm tra kiểu dữ liệu trước khi so sánh nếu cần thiết.",
+      "Sử dụng các phương thức chuyển đổi kiểu (parseInt, String, ...) nếu muốn so sánh hai giá trị khác kiểu."
+    ],
+    "tags": [
+      "javascript",
+      "equality",
+      "triple-equals",
+      "best-practice",
+      "logic-error"
+    ],
+    "semantic_keywords": [
+      "javascript triple equals",
+      "== vs ===",
+      "strict equality js",
+      "avoid loose comparison",
+      "js equality"
+    ],
+    "metadata": {
+      "created_at": "2025-08-22",
+      "updated_at": "2025-08-22",
+      "applicable_files": [
+        "*.js",
+        "*.jsx"
+      ]
+    }
+  },
+  {
+    "Prj_id": "XXXX",
+    "rule_id": "Js_R07",
+    "title": "[No Unused Variables] Không khai báo biến nhưng không sử dụng",
+    "description": "Khai báo biến nhưng không sử dụng làm code rối, khó maintain, tăng nguy cơ bug và khó optimize bởi trình biên dịch.\n\n**Lý do chi tiết:**\n- Biến không dùng làm code dài, khó đọc.\n- Gây nhầm lẫn về mục đích khi review code.\n- Tăng nguy cơ bug khi không clear intent.",
+    "severity": "Medium",
+    "category": "context",
+    "language": [
+      "javascript",
+      "js",
+      "jsx",
+      "typescript",
+      "ts"
+    ],
+    "example_incorrect": "// Khai báo nhưng không dùng\nlet unused;\nconst temp = 123;\n// Không dùng unused và temp",
+    "example_correct": "// Chỉ khai báo biến cần thiết\nconst value = 123;\nconsole.log(value);",
+    "suggested_fix": [
+      "Xoá các biến khai báo nhưng không sử dụng.",
+      "Dùng các công cụ lint như eslint để phát hiện biến thừa.",
+      "Chỉ khai báo biến khi thực sự cần thiết trong logic code."
+    ],
+    "tags": [
+      "javascript",
+      "unused-variable",
+      "clean-code",
+      "eslint",
+      "refactor"
+    ],
+    "semantic_keywords": [
+      "javascript unused variable",
+      "remove unused variable",
+      "eslint no-unused-vars",
+      "js clean code"
+    ],
+    "metadata": {
+      "created_at": "2025-08-22",
+      "updated_at": "2025-08-22",
+      "applicable_files": [
+        "*.js",
+        "*.ts",
+        "*.jsx",
+        "*.tsx"
+      ]
+    }
+  },
+  {
+    "Prj_id": "XXXX",
+    "rule_id": "J_R04",
+    "title": "[Null Check] Luôn kiểm tra null trước khi truy cập thuộc tính hoặc phương thức",
+    "description": "Truy cập thuộc tính hoặc gọi phương thức trên biến null sẽ gây ra NullPointerException, làm crash chương trình.\n\n**Lý do chi tiết:**\n- Tránh crash bất ngờ.\n- Giúp code dễ debug, maintain.\n- Đảm bảo logic chạy đúng khi giá trị có thể null.",
+    "severity": "High",
+    "category": "context",
+    "language": [
+      "java"
+    ],
+    "example_incorrect": "// Không kiểm tra null\nString name = person.getName();\nint length = name.length(); // Nếu name là null sẽ lỗi",
+    "example_correct": "// Kiểm tra null trước khi sử dụng\nString name = person.getName();\nif (name != null) {\n  int length = name.length();\n}",
+    "suggested_fix": [
+      "Luôn kiểm tra null trước khi dùng thuộc tính hoặc phương thức.",
+      "Dùng Optional để tránh null nếu có thể.",
+      "Tránh trả về null từ method, thay vào đó trả về giá trị mặc định hoặc Optional."
+    ],
+    "tags": [
+      "java",
+      "null-check",
+      "nullpointerexception",
+      "safe-code"
+    ],
+    "semantic_keywords": [
+      "java null check",
+      "avoid nullpointerexception",
+      "safe java code",
+      "optional java"
+    ],
+    "metadata": {
+      "created_at": "2025-08-22",
+      "updated_at": "2025-08-22",
+      "applicable_files": [
+        "*.java"
+      ]
+    }
+  },
+  {
+    "Prj_id": "XXXX",
+    "rule_id": "J_R05",
+    "title": "[Close Resource] Luôn đóng resource sau khi sử dụng (File, Stream, Connection...)",
+    "description": "Không đóng resource sau khi dùng sẽ gây rò rỉ bộ nhớ, khiến chương trình bị crash hoặc chậm. Nên dùng try-with-resources hoặc đóng thủ công ở finally.\n\n**Lý do chi tiết:**\n- Tránh leak resource.\n- Đảm bảo hiệu năng và bảo mật.\n- Dễ maintain và debug.",
+    "severity": "High",
+    "category": "context",
+    "language": [
+      "java"
+    ],
+    "example_incorrect": "// Không đóng file\nFileInputStream fis = new FileInputStream(\"file.txt\");\n// ... đọc file\n// Không đóng fis",
+    "example_correct": "// Sử dụng try-with-resources\ntry (FileInputStream fis = new FileInputStream(\"file.txt\")) {\n  // ... đọc file\n}",
+    "suggested_fix": [
+      "Luôn sử dụng try-with-resources với các class implement AutoCloseable.",
+      "Đảm bảo đóng resource ở finally nếu không dùng try-with-resources.",
+      "Kiểm tra các điểm có mở resource để đóng sau khi sử dụng."
+    ],
+    "tags": [
+      "java",
+      "resource-leak",
+      "close-resource",
+      "try-with-resources",
+      "best-practice"
+    ],
+    "semantic_keywords": [
+      "java close resource",
+      "try-with-resources",
+      "avoid resource leak",
+      "java file close"
+    ],
+    "metadata": {
+      "created_at": "2025-08-22",
+      "updated_at": "2025-08-22",
+      "applicable_files": [
+        "*.java"
+      ]
+    }
+  },
+  {
+    "Prj_id": "XXXX",
+    "rule_id": "J_R06",
+    "title": "[Magic Number] Tránh hardcode số hoặc string trực tiếp trong code",
+    "description": "Magic number (ví dụ: 3600, 1024, \"admin\") làm code khó hiểu và khó maintain. Nên thay bằng hằng số có tên rõ nghĩa.",
+    "severity": "Medium",
+    "category": "context",
+    "language": ["java"],
+    "example_incorrect": "if (userRole.equals(\"admin\")) {\n  grantAccess();\n}",
+    "example_correct": "private static final String ROLE_ADMIN = \"admin\";\nif (userRole.equals(ROLE_ADMIN)) {\n  grantAccess();\n}",
+    "suggested_fix": [
+      "Định nghĩa constant bằng static final.",
+      "Đặt tên hằng số rõ nghĩa để dễ hiểu.",
+      "Nhóm các constant chung trong 1 class Constants."
+    ],
+    "tags": ["java", "magic-number", "constant", "clean-code"],
+    "semantic_keywords": ["java magic number", "java constant best practice", "avoid hardcode java"],
+    "metadata": {
+      "created_at": "2025-08-22",
+      "updated_at": "2025-08-22",
+      "applicable_files": ["*.java"]
+    }
+  },
+  {
+    "Prj_id": "XXXX",
+    "rule_id": "J_R07",
+    "title": "[Exception Handling] Không catch Exception chung chung",
+    "description": "Bắt Exception chung (catch Exception e) sẽ làm che giấu lỗi thật, khó debug và xử lý không chính xác. Nên bắt exception cụ thể như IOException, SQLException.",
+    "severity": "High",
+    "category": "nocontext",
+    "language": ["java"],
+    "example_incorrect": "try {\n  FileInputStream fis = new FileInputStream(\"file.txt\");\n} catch (Exception e) {\n  e.printStackTrace();\n}",
+    "example_correct": "try {\n  FileInputStream fis = new FileInputStream(\"file.txt\");\n} catch (FileNotFoundException e) {\n  System.err.println(\"File not found\");\n}",
+    "suggested_fix": [
+      "Luôn bắt exception cụ thể.",
+      "Chỉ dùng catch Exception để log và rethrow.",
+      "Dùng logging framework thay vì e.printStackTrace()."
+    ],
+    "tags": ["java", "exception-handling", "clean-code"],
+    "semantic_keywords": ["java catch exception best practice", "avoid generic exception handling", "specific exception handling"],
+    "metadata": {
+      "created_at": "2025-08-22",
+      "updated_at": "2025-08-22",
+      "applicable_files": ["*.java"]
+    }
+  },
+  {
+    "Prj_id": "XXXX",
+    "rule_id": "Js_R08",
+    "title": "[No Console Log] Không để console.log trong production",
+    "description": "console.log chỉ nên dùng debug, để lại trong production có thể lộ thông tin nhạy cảm và làm code thiếu chuyên nghiệp.",
+    "severity": "Medium",
+    "category": "context",
+    "language": ["javascript", "js", "jsx", "ts", "tsx"],
+    "example_incorrect": "function fetchData() {\n  console.log('Fetching data...');\n  return api.get('/data');\n}",
+    "example_correct": "function fetchData() {\n  return api.get('/data');\n  // logging thì dùng thư viện winston hoặc log4js\n}",
+    "suggested_fix": [
+      "Xoá console.log trước khi release.",
+      "Dùng logging framework (winston, pino...).",
+      "Chỉ bật log ở môi trường dev."
+    ],
+    "tags": ["javascript", "console-log", "logging", "clean-code"],
+    "semantic_keywords": ["remove console log", "production logging best practice", "javascript clean logging"],
+    "metadata": {
+      "created_at": "2025-08-22",
+      "updated_at": "2025-08-22",
+      "applicable_files": ["*.js", "*.jsx", "*.ts", "*.tsx"]
+    }
+  },
+  {
+    "Prj_id": "XXXX",
+    "rule_id": "Js_R09",
+    "title": "[Var Declaration] Không dùng var, thay bằng let hoặc const",
+    "description": "var có phạm vi function scope và hoisting, dễ gây bug. Nên dùng let hoặc const để có block scope rõ ràng.",
+    "severity": "High",
+    "category": "nocontext",
+    "language": ["javascript", "js", "jsx", "ts", "tsx"],
+    "example_incorrect": "for (var i = 0; i < 5; i++) {\n  setTimeout(() => console.log(i), 1000);\n} // in ra 5 lần số 5",
+    "example_correct": "for (let i = 0; i < 5; i++) {\n  setTimeout(() => console.log(i), 1000);\n} // in ra 0,1,2,3,4",
+    "suggested_fix": [
+      "Dùng const cho biến không thay đổi.",
+      "Dùng let cho biến thay đổi giá trị.",
+      "Tránh dùng var hoàn toàn."
+    ],
+    "tags": ["javascript", "var-vs-let", "es6", "scope"],
+    "semantic_keywords": ["javascript var vs let", "avoid var", "block scope javascript"],
+    "metadata": {
+      "created_at": "2025-08-22",
+      "updated_at": "2025-08-22",
+      "applicable_files": ["*.js", "*.jsx", "*.ts", "*.tsx"]
+    }
+  },
+  {
+    "Prj_id": "XXXX",
+    "rule_id": "Ts_R01",
+    "title": "[Strict Null Check] Bật strictNullChecks trong TypeScript",
+    "description": "strictNullChecks giúp tránh bug do null/undefined. Nếu tắt, null và undefined có thể gán cho bất kỳ type nào, dễ crash.",
+    "severity": "High",
+    "category": "nocontext",
+    "language": ["typescript", "ts", "tsx"],
+    "example_incorrect": "// Khi strictNullChecks = false\nlet name: string;\nname = null; // hợp lệ nhưng nguy hiểm",
+    "example_correct": "// Khi strictNullChecks = true\nlet name: string;\nname = null; // lỗi compile\nname = 'John'; // hợp lệ",
+    "suggested_fix": [
+      "Bật strictNullChecks trong tsconfig.json.",
+      "Xử lý null rõ ràng bằng union type (string | null).",
+      "Dùng optional chaining (?.) và nullish coalescing (??) khi cần."
+    ],
+    "tags": ["typescript", "strict-null-checks", "type-safety"],
+    "semantic_keywords": ["typescript strict null checks", "avoid null ts", "tsconfig strict mode"],
+    "metadata": {
+      "created_at": "2025-08-22",
+      "updated_at": "2025-08-22",
+      "applicable_files": ["*.ts", "*.tsx"]
+    }
+  }
+]

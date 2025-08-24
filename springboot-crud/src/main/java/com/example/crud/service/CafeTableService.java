@@ -18,7 +18,7 @@ public class CafeTableService {
         this.cafeTableRepository = cafeTableRepository;
     }
 
-    // Create
+    // Create test
     public CafeTableDTO createTable(CafeTableDTO dto) {
         CafeTable table = new CafeTable();
         table.setTableNumber(dto.getTableNumber());
